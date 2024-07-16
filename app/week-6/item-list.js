@@ -1,60 +1,43 @@
-"use client";
 
-import React, { useState } from 'react';
-import Item from "./item";
+"use client"; 
 
-const ItemList = ({ items, onItemSelect }) => {
-  const [sortBy, setSortBy] = useState("name");
+import { useState } from 'react'; 
+import Item from './item'; 
 
-  const sortedItems = items
-    .map((item) => item)
-    .sort((a, b) => {
-      if (sortBy === "name") {
-        return a.name.localeCompare(b.name);
-      } else if (sortBy === "category") {
-        return a.category.localeCompare(b.category);
-      }
-      return 0;
-    });
+export default function ItemList({ items }) {
+  const [sortBy, setSortBy] = useState('name');
 
-  const nameClick = () => {
-    setSortBy("name");
-  };
-
-  const categoryClick = () => {
-    setSortBy("category");
-  };
+  const sortedItems = [...items].sort((a, b) => {
+    if (sortBy === 'name') {
+      return a.name.localeCompare(b.name);
+    } else if (sortBy === 'category') {
+      return a.category.localeCompare(b.category); 
+    }
+  });
 
   return (
-    <div className="flex flex-col gap-2 items-start p-2 bg-slate-950 text-white min-h-screen">
-      <div className="flex flex-row gap-4 items-center mb-2">
-        <p className="p-2">Sort by:</p>
+    <div>
+      <div className="p-2 m-2 text-l capitalize text-stone-50">
+        Sort By:
         <button
-          onClick={nameClick}
-          className={`p-2 ${sortBy === "name" ? "bg-orange-500" : "bg-orange-600"}`}
+          className={`p-1 m-2 w-28 square-lg ${sortBy === 'name' ? 'bg-orange-500' : 'bg-orange-700'}`}
+          onClick={() => setSortBy('name')}
         >
           Name
         </button>
         <button
-          onClick={categoryClick}
-          className={`p-2 rounded ${sortBy === "category" ? "bg-orange-500" : "bg-orange-600"}`}
+          className={`p-1 m-2 w-28 square-lg ${sortBy === 'category' ? 'bg-orange-500' : 'bg-orange-700'}`}
+          onClick={() => setSortBy('category')}
         >
           Category
         </button>
       </div>
-      <ul className="space-y-2">
-        {sortedItems.map((item, index) => (
-          <Item
-            key={index}
-            name={item.name}
-            quantity={item.quantity}
-            category={item.category}
-            onSelect={() => onItemSelect(item)}
-          />
+
+      <ul className="text-xl capitalize text-stone-50">
+        {sortedItems.map((item) => (
+          <Item key={item.id} name={item.name} quantity={item.quantity} category={item.category} />
         ))}
       </ul>
     </div>
   );
-};
-
-export default ItemList;
+}

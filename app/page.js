@@ -30,6 +30,7 @@ export default function Home() {
           <Link href="./week-4/" className={underline}>Week 4 Assignment</Link>
           <Link href="./week-5/" className={underline}>Week 5 Assignment</Link>
           <Link href="./week-6/" className={underline}>Week 6 Assignment</Link>
+          <Link href="./week-7/" className={underline}>Week 7 Assignment</Link>
         </div>
       </div>
     </main>
